@@ -8,7 +8,21 @@ export const personalInfo = {
   githubUrl: "https://github.com/Vish-Sharma07",
   linkedinUrl: "https://www.linkedin.com/in/vishakha-sharma25/",
   email: "sharmavish25@gmail.com",
-  resumeUrl: "/resume.pdf",
+  get resumeUrl(): string {
+    const base = import.meta.env.BASE_URL || '/';
+    const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+    if (normalizedBase !== '/') {
+      return `${normalizedBase}resume.pdf`;
+    }
+    if (
+      typeof window !== 'undefined' &&
+      (window.location.pathname.startsWith('/vishakha-portfolio') ||
+        window.location.hostname.includes('github.io'))
+    ) {
+      return '/vishakha-portfolio/resume.pdf';
+    }
+    return `${normalizedBase}resume.pdf`;
+  },
   githubBio: "Frontend Developer | React • JavaScript • Python • SQL | Building practical web apps & exploring AI + automation",
   location: "Open to Remote & On-Site",
   codeSnippet: `const developer = {
